@@ -27,6 +27,22 @@ class RandomPlayer(Player):
         pass
 
 
+class HumanPlayer(Player):
+    def move(self):
+        invalid_move = True
+
+        while invalid_move:
+            throw_choice = input("What would you like to throw? Choose from: 'rock', 'paper', or 'scissors'")
+            if throw_choice not in moves:
+                invalid_move = True
+            else:
+                invalid_move = False
+                return throw_choice
+
+    def learn(self, my_move, their_move):
+        pass
+
+
 def beats(one, two):
     return ((one == 'rock' and two == 'scissors') or
             (one == 'scissors' and two == 'paper') or
@@ -72,5 +88,5 @@ class Game:
 
 
 if __name__ == '__main__':
-    game = Game(RandomPlayer(), RandomPlayer())
+    game = Game(HumanPlayer(), RandomPlayer())
     game.play_game()
