@@ -43,6 +43,16 @@ class HumanPlayer(Player):
         pass
 
 
+class ReflectPlayer(Player):
+    their_move = random.choice(moves)
+    def move(self):
+        return self.their_move
+
+    def learn(self, my_move, their_move):
+        self.my_move = my_move
+        self.their_move = their_move
+
+
 def beats(one, two):
     return ((one == 'rock' and two == 'scissors') or
             (one == 'scissors' and two == 'paper') or
@@ -88,5 +98,5 @@ class Game:
 
 
 if __name__ == '__main__':
-    game = Game(HumanPlayer(), RandomPlayer())
+    game = Game(HumanPlayer(), ReflectPlayer())
     game.play_game()
