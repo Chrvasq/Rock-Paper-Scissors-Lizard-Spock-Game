@@ -77,6 +77,9 @@ def beats(one, two):
             (one == 'paper' and two == 'rock'))
 
 
+#player_type list
+player_type = [Player, RandomPlayer, ReflectPlayer, CyclePlayer]
+
 class Game:
     def __init__(self, p1, p2):
         self.p1 = p1
@@ -105,16 +108,46 @@ class Game:
         self.p2.learn(move2, move1)
 
     def play_game(self):
+        round_amount = input("How many rounds would you like to play? ")
         print("Game start!")
 
-        for round in range(3):
+        for round in range(int(round_amount)):
             print(f"Round {round + 1}:")
             self.play_round()
         
         print("Game over!")
+        if self.p1_score > self.p2_score:
+            print("Player 1 wins the game!")
+        elif self.p2_score > self.p1_score:
+            print("Player 2 wins the game!")
+        else:
+            print("It's a TIE game!")
         print(f"Final Score: Player 1: {self.p1_score}  Player 2: {self.p2_score}")
 
 
 if __name__ == '__main__':
-    game = Game(HumanPlayer(), CyclePlayer())
-    game.play_game()
+    game_type_selection = True
+    while game_type_selection:
+        game_type = input("Which game type would you like to play? 'intro', random', 'reflect', 'cycle', 'spectate': ")
+        if game_type.lower() == "intro":
+            game = Game(HumanPlayer(), Player())
+            game.play_game()
+            game_type_selection = False
+        elif game_type.lower() == "random":
+            game = Game(HumanPlayer(), RandomPlayer())
+            game.play_game()
+            game_type_selection = False
+        elif game_type.lower() == "reflect":
+            game = Game(HumanPlayer(), ReflectPlayer())
+            game.play_game()
+            game_type_selection = False
+        elif game_type.lower() == "cycle":
+            game = Game(HumanPlayer(), CyclePlayer())
+            game.play_game()
+            game_type_selection = False
+        elif game_type.lower() == "spectate":
+            game = Game(random.choice(player_type)(), random.choice(player_type)())
+            game.play_game()
+            game_type_selection = False
+        else:
+            game_type_selection = True
