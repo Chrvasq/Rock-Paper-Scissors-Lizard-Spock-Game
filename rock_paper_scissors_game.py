@@ -45,8 +45,26 @@ class HumanPlayer(Player):
 
 class ReflectPlayer(Player):
     their_move = random.choice(moves)
+
     def move(self):
         return self.their_move
+
+    def learn(self, my_move, their_move):
+        self.my_move = my_move
+        self.their_move = their_move
+
+
+class CyclePlayer(Player):
+    my_move = random.choice(moves)
+
+    def move(self):
+        if self.my_move == 'rock':
+            self.my_move = 'paper'
+        elif self.my_move == 'paper':
+            self.my_move = 'scissors'
+        else:
+            self.my_move = 'rock'
+        return self.my_move
 
     def learn(self, my_move, their_move):
         self.my_move = my_move
@@ -98,5 +116,5 @@ class Game:
 
 
 if __name__ == '__main__':
-    game = Game(HumanPlayer(), ReflectPlayer())
+    game = Game(HumanPlayer(), CyclePlayer())
     game.play_game()
