@@ -32,7 +32,10 @@ class HumanPlayer(Player):
         invalid_move = True
 
         while invalid_move:
-            throw_choice = input("What would you like to throw? Choose from: 'rock', 'paper', or 'scissors'")
+            throw_choice = input(
+                "What would you like to throw? "
+                "Choose: 'rock', 'paper', or 'scissors'"
+                )
             if throw_choice not in moves:
                 invalid_move = True
             else:
@@ -77,8 +80,12 @@ def beats(one, two):
             (one == 'paper' and two == 'rock'))
 
 
-#player_type list
+# player_type list
 player_type = [Player, RandomPlayer, ReflectPlayer, CyclePlayer]
+
+random_player1 = random.choice(player_type)
+random_player2 = random.choice(player_type)
+
 
 class Game:
     def __init__(self, p1, p2):
@@ -91,10 +98,13 @@ class Game:
         move1 = self.p1.move()
         move2 = self.p2.move()
 
-        print(f"Current Score: Player 1: {self.p1_score} Player 2: {self.p2_score}")
-        
+        print(
+            f"Current Score: Player 1: {self.p1_score} "
+            "Player 2: {self.p2_score}"
+            )
+
         print(f"Player 1: {move1}  Player 2: {move2}")
-        
+
         if move1 == move2:
             print("It's a TIE!")
         elif beats(move1, move2):
@@ -103,7 +113,7 @@ class Game:
         elif beats(move2, move1):
             print("Player 2 won this round!")
             self.p2_score += 1
-        
+
         self.p1.learn(move1, move2)
         self.p2.learn(move2, move1)
 
@@ -114,7 +124,7 @@ class Game:
         for round in range(int(round_amount)):
             print(f"Round {round + 1}:")
             self.play_round()
-        
+
         print("Game over!")
         if self.p1_score > self.p2_score:
             print("Player 1 wins the game!")
@@ -122,13 +132,19 @@ class Game:
             print("Player 2 wins the game!")
         else:
             print("It's a TIE game!")
-        print(f"Final Score: Player 1: {self.p1_score}  Player 2: {self.p2_score}")
+        print(
+            f"Final Score: Player 1: {self.p1_score} "
+            "Player 2: {self.p2_score}"
+            )
 
 
 if __name__ == '__main__':
     game_type_selection = True
     while game_type_selection:
-        game_type = input("Which game type would you like to play? 'intro', random', 'reflect', 'cycle', 'spectate': ")
+        game_type = input(
+            "Which game type would you like to play? "
+            "'intro', random', 'reflect', 'cycle', 'spectate': "
+            )
         if game_type.lower() == "intro":
             game = Game(HumanPlayer(), Player())
             game.play_game()
@@ -146,7 +162,7 @@ if __name__ == '__main__':
             game.play_game()
             game_type_selection = False
         elif game_type.lower() == "spectate":
-            game = Game(random.choice(player_type)(), random.choice(player_type)())
+            game = Game(random_player1(), random_player2())
             game.play_game()
             game_type_selection = False
         else:
