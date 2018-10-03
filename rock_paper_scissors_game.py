@@ -35,7 +35,7 @@ class HumanPlayer(Player):
             throw_choice = input(
                 "What would you like to throw? "
                 "Choose: 'rock', 'paper', 'scissors', "
-                "'lizard', 'spock'"
+                "'lizard', 'spock': "
                 )
             if throw_choice not in moves:
                 invalid_move = True
@@ -106,11 +106,6 @@ class Game:
         move1 = self.p1.move()
         move2 = self.p2.move()
 
-        print(
-            f"Current Score: Player 1: {self.p1_score} "
-            "Player 2: {self.p2_score}"
-            )
-
         print(f"Player 1: {move1}  Player 2: {move2}")
 
         if move1 == move2:
@@ -124,6 +119,11 @@ class Game:
 
         self.p1.learn(move1, move2)
         self.p2.learn(move2, move1)
+
+        print(
+            f"Current Score: Player 1: {self.p1_score} "
+            f"Player 2: {self.p2_score}"
+            )
 
     def play_game(self):
         round_amount = input("How many rounds would you like to play? ")
@@ -142,7 +142,7 @@ class Game:
             print("It's a TIE game!")
         print(
             f"Final Score: Player 1: {self.p1_score} "
-            "Player 2: {self.p2_score}"
+            f"Player 2: {self.p2_score}"
             )
 
 
