@@ -83,6 +83,7 @@ def beats(one, two):
 # player_type list
 player_type = [Player, RandomPlayer, ReflectPlayer, CyclePlayer]
 
+# random player variable
 random_player1 = random.choice(player_type)
 random_player2 = random.choice(player_type)
 
