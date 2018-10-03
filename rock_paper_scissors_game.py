@@ -2,10 +2,10 @@
 
 import random
 
-"""This program plays a game of Rock, Paper, Scissors between two Players,
-and reports both Player's scores each round."""
+"""This program plays a game of Rock, Paper, Scissors, Lizard, Spock between"
+" two Players and reports both Player's scores each round."""
 
-moves = ['rock', 'paper', 'scissors']
+moves = ['rock', 'paper', 'scissors', 'lizard', 'spock']
 
 """The Player class is the parent class for all of the Players
 in this game"""
@@ -34,7 +34,8 @@ class HumanPlayer(Player):
         while invalid_move:
             throw_choice = input(
                 "What would you like to throw? "
-                "Choose: 'rock', 'paper', or 'scissors'"
+                "Choose: 'rock', 'paper', 'scissors', "
+                "'lizard', 'spock'"
                 )
             if throw_choice not in moves:
                 invalid_move = True
@@ -65,6 +66,10 @@ class CyclePlayer(Player):
             self.my_move = 'paper'
         elif self.my_move == 'paper':
             self.my_move = 'scissors'
+        elif self.my_move == 'scissors':
+            self.my_move = 'lizard'
+        elif self.my_move == 'lizard':
+            self.my_move = 'spock'
         else:
             self.my_move = 'rock'
         return self.my_move
@@ -75,9 +80,11 @@ class CyclePlayer(Player):
 
 
 def beats(one, two):
-    return ((one == 'rock' and two == 'scissors') or
-            (one == 'scissors' and two == 'paper') or
-            (one == 'paper' and two == 'rock'))
+    return ((one == 'rock' and (two == 'scissors' or two == 'lizard')) or
+            (one == 'scissors' and (two == 'paper' or two == 'lizard')) or
+            (one == 'paper' and (two == 'rock' or two == 'spock')) or
+            (one == 'lizard' and (two == 'spock' or two == 'paper')) or
+            (one == 'spock' and (two == 'scissors' or two == 'rock')))
 
 
 # player_type list
